@@ -1,38 +1,120 @@
-
 /* Interface */
-#define function setNumber(uint256) nonpayable returns ()
-#define function getNumber() view returns (uint256)
-
-/* Storage Slots */
-#define constant NUMBER_LOCATION = FREE_STORAGE_POINTER()
+#define function returnNumber() pure returns(uint256)
+#define function adding(uint256,uint256) pure returns(uint256)
+#define function additionTest() pure returns(uint256)
+#define function isEven(uint256) pure returns(bool)
+#define function returnString() pure returns (string memory)
+//#define function fizzbuzz(uint256) pure returns(string)
 
 /* Methods */
-#define macro SET_NUMBER() = takes (0) returns (0) {
-    0x04 calldataload   // [number]
-    [NUMBER_LOCATION]   // [ptr, number]
-    sstore              // []
-}
-
-#define macro GET_NUMBER() = takes (0) returns (0) {
-    // Load number from storage.
-    [NUMBER_LOCATION]   // [ptr]
-    sload                // [number]
-
-    // Store number in memory.
+#define macro RETURN_NUMBER() = takes (0) returns (1) {
+    0x0a
     0x00 mstore
-
-    // Return number
     0x20 0x00 return
 }
+
+#define macro ADD_TEST() = takes(0) returns(1) {
+    0x04
+    0x05
+    add
+    0x00 mstore
+    0x20 0x00 return
+}
+
+#define macro ADDING() = takes(2) returns (1) {
+    0x04 calldataload
+    0x24 calldataload
+    add
+    0x00 mstore
+    0x20 0x00 return
+}
+
+#define macro IS_EVEN() = takes (1) returns (1) {
+    0x02
+    0x04 calldataload
+    mod
+    iszero
+    0x00 mstore
+    0x20 0x00 return
+}
+
+#define macro RETURN_STRING() = takes (0) returns (1) {
+    0x0866697a7a62757a7a
+    0x28
+    mstore
+
+    0x20 0x00 mstore
+
+    
+    0x60 0x00 return
+}
+
+#define macro FIZZBUZZ() = takes (1) returns (1) {
+    0x04 calldataload
+    0x03
+    dup2
+    mod
+    iszero
+    0x //jumpdest number
+    jumpi
+
+    0x05
+    dup2
+    mod
+    iszero
+    0x //jumpdest number
+    jumpi
+
+
+    0x0 //return blank if not neither fizz or buzz
+    0x00 mstore
+    0x20 0x00 return
+
+
+    jumpdest //fizz
+    0x05 //check if can fizz & buzz
+    dup2
+    mod
+    iszero
+    0x //jumpdest number
+    jumpi
+    0x01 0x00 mstore
+    0x20 0x00 return
+
+
+    jumpdest //buzz
+    0x02 0x00 mstore
+    0x20 0x00 return
+
+
+    jumpdest //fizzbuzz
+    0x03 0x10 mstore
+    0x20 0x00 return
+
+}
+
+
 
 #define macro MAIN() = takes (0) returns (0) {
     // Identify which function is being called.
     0x00 calldataload 0xE0 shr
-    dup1 0x3fb5c1cb eq set jumpi
-    dup1 0xf2c9ecd8 eq get jumpi
+    dup1 0x3450bd6a eq returnNumber jumpi
+    dup1 0xee77d907 eq additionTest jumpi
+    dup1 0xc2d32c6d eq adding jumpi
+    dup1 0x2a2e1320 eq isEven jumpi
+    dup1 0x6cf43347 eq returnString jumpi
+    //dup1 0x06c3c519 eq fizzbuzz jumpi
 
-    set:
-        SET_NUMBER()
-    get:
-        GET_NUMBER()
+    returnNumber:
+        RETURN_NUMBER()
+    additionTest:
+        ADD_TEST()
+    adding:
+        ADDING()
+    isEven:
+        IS_EVEN()
+    returnString:
+        RETURN_STRING()
+    /* fizzbuzz:
+        FIZZBUZZ() */
 }

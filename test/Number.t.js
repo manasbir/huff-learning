@@ -4,20 +4,34 @@ const { ethers } = require("hardhat");
 
 let number;
 
-describe("Greeter", function () {
+describe("SimpleTesting", function () {
   beforeEach(async function () {
     const Number = await ethers.getContractFactory("Number");
     number = await Number.deploy();
     await number.deployed();
   });
-  it("Number is deployed", async function () {
+  it("Contract is deployed", async function () {
     expect(number.address).to.not.equal(
       "0x0000000000000000000000000000000000000000"
     );
   });
-  it("Number can be set", async function () {
-    await number.setNumber(100);
-    expect(await number.getNumber()).to.equal(100);
-    expect(await number.getNumber()).to.not.equal(10);
+  it("addition works!", async function () {
+    expect(await number.adding(2,3)).to.equal(5);
+  });
+  it("returns 10", async function () {
+    expect(await number.returnNumber()).to.equal(10);
+  });
+  it("adds 4 and 5 to get 9", async function () {
+    expect(await number.additionTest()).to.equal(9);
+  });
+  it("adds the two numbers correctly", async function () {
+    expect(await number.adding(2,3)).to.equal(5);
+  });
+  it("will tell us if even or odd", async function () {
+    expect(await number.isEven(5)).to.equal(false);
+    expect(await number.isEven(4)).to.equal(true);
+  });
+   it("will return 'fizzbuzz'/a value at all", async function () {
+    expect(await number.returnString()).to.not.equal("");
   });
 });
