@@ -5,39 +5,36 @@
     0x03
     dup2
     mod
-    iszero
-    0x /*jumpdest number*/ jumpi
+    iszero fizz jumpi
 
     0x05
     dup2
     mod
-    iszero
-    0x /*jumpdest number*/ jumpi
+    iszero buzz jumpi
 
     0x0 //return blank if not neither fizz or buzz
     0x00 mstore
     0x20 0x00 return
 
 
-    jumpdest //fizz
+    fizz: //fizz
     0x05 //check if can fizz & buzz
     dup2
     mod
-    iszero
-    0x /*jumpdest number*/ jumpi
-    
+    iszero return_fizzbuzz jumpi
+
     0x0466697a7a 0x24 mstore
     0x20 0x00 mstore
     0x60 0x00 return
 
 
-    jumpdest //buzz
+    buzz:
     0x0462757a7a 0x24 mstore
     0x20 0x00 mstore
     0x60 0x00 return
 
 
-    jumpdest //fizzbuzz
+    return_fizzbuzz: //fizzbuzz
     0x0866697a7a62757a7a 0x28 mstore
     0x20 0x00 mstore
     0x60 0x00 return
