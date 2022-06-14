@@ -1,0 +1,54 @@
+#define function fizzbuzz(uint256) pure returns(string)
+
+#define macro FIZZBUZZ() = takes (1) returns (1) {
+    0x04 calldataload
+    0x03
+    dup2
+    mod
+    iszero
+    0x /*jumpdest number*/ jumpi
+
+    0x05
+    dup2
+    mod
+    iszero
+    0x /*jumpdest number*/ jumpi
+
+    0x0 //return blank if not neither fizz or buzz
+    0x00 mstore
+    0x20 0x00 return
+
+
+    jumpdest //fizz
+    0x05 //check if can fizz & buzz
+    dup2
+    mod
+    iszero
+    0x /*jumpdest number*/ jumpi
+    
+    0x0466697a7a 0x24 mstore
+    0x20 0x00 mstore
+    0x60 0x00 return
+
+
+    jumpdest //buzz
+    0x0462757a7a 0x24 mstore
+    0x20 0x00 mstore
+    0x60 0x00 return
+
+
+    jumpdest //fizzbuzz
+    0x0866697a7a62757a7a 0x28 mstore
+    0x20 0x00 mstore
+    0x60 0x00 return
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    // Identify which function is being called.
+    0x00 calldataload 0xE0 shr
+    dup1 0x06c3c519 eq fizzbuzz jumpi
+
+
+    fizzbuzz:
+        FIZZBUZZ()
+}
