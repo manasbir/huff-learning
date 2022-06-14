@@ -31,7 +31,4 @@ describe("SimpleTesting", function () {
     expect(await number.isEven(5)).to.equal(false);
     expect(await number.isEven(4)).to.equal(true);
   });
-   it("will return 'fizzbuzz'/a value at all", async function () {
-    expect(await number.returnString()).to.not.equal("");
-  });
 });

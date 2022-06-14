@@ -3,7 +3,7 @@
 #define function adding(uint256,uint256) pure returns(uint256)
 #define function additionTest() pure returns(uint256)
 #define function isEven(uint256) pure returns(bool)
-#define function returnString() pure returns (string memory)
+#define function returnString() pure returns (string)
 //#define function fizzbuzz(uint256) pure returns(string)
 
 /* Methods */
