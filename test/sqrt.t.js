@@ -4,9 +4,9 @@ const { ethers } = require("hardhat");
 
 let number;
 
-describe("fizzbuzz tests", function () {
+describe("sqrt tests", function () {
   beforeEach(async function () {
-    const Number = await ethers.getContractFactory("fizzbuzz");
+    const Number = await ethers.getContractFactory("sqrt");
     number = await Number.deploy();
     await number.deployed();
   });
@@ -15,9 +15,10 @@ describe("fizzbuzz tests", function () {
       "0x0000000000000000000000000000000000000000"
     );
   });
-   it("will return 'fizzbuzz'", async function () {
-    expect(await number.fizzbuzz(15)).to.equal("fizzbuzz");
-    expect(await number.fizzbuzz(3)).to.equal("fizz");
-    expect(await number.fizzbuzz(5)).to.equal("buzz");
+   it("is greater than", async function () {
+    expect(await number.sqrt(15)).to.equal(1);
+  });
+  it("i sless than", async function () {
+    expect(await number.sqrt(2)).to.equal(1);
   });
 });

@@ -4,7 +4,7 @@ const { ethers } = require("hardhat");
 
 let number;
 
-describe("SimpleTesting", function () {
+describe("return string test", function () {
   beforeEach(async function () {
     const Number = await ethers.getContractFactory("string");
     number = await Number.deploy();
