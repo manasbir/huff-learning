@@ -23,4 +23,8 @@ describe("sqrt tests", function () {
     expect(await number.sqrt(9)).to.equal(3);
     console.log('9 ', await number.sqrt(9))
   });
+  it("i sless than", async function () {
+    expect(await number.sqrt(36)).to.equal(6);
+    console.log('36 ', await number.sqrt(36))
+  });
 });
