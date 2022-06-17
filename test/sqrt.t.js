@@ -16,9 +16,11 @@ describe("sqrt tests", function () {
     );
   });
    it("is greater than", async function () {
-    expect(await number.sqrt(15)).to.equal(1);
+    expect(await number.sqrt(25)).to.equal(5);
+    console.log('25 ', await number.sqrt(25));
   });
   it("i sless than", async function () {
-    expect(await number.sqrt(2)).to.equal(1);
+    expect(await number.sqrt(9)).to.equal(3);
+    console.log('9 ', await number.sqrt(9))
   });
 });

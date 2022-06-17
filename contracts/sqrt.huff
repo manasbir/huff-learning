@@ -2,27 +2,41 @@
 
 #define macro SQRT() = takes (1) returns (1) {
     0x04 calldataload
-    0x03
-    lt
-    0x00 mstore
+    0x02 //2 , calldata
+    dup2 //calldata, 2 , calldata
+    div //divide number by 2 approx, calldata
+    0x01 //1, approx(calldata/2), calldata
+    dup2 //approx,1, approx, calldata
+    sub //approx-1,approx, calldata
+    0x01 //1, approx - 1, approx, calldata
+    dup2 // approx, 1 , approx, calldata
+    gt //is greater than 1?
+    0x01 //should be y
+    swap1 //is greater than?, y, calldata
+
+    while_loop jumpi
+    0x00 mstore //returns answer if first guess was right
     0x20 0x00 return
 
-/*     0x02
-    dup2
-    div //divide number by 2
-    0x01
-    dup2
-    sub //subtract 1
-    0x01 
-    lt //is greater than 1?
+    while_loop: //y is at the top of the stack and the calldata is 2nd, approx should be 3rd
+    dup1
+    dup3 add
+    0x02 swap1
+    div //approximation is top of stack now, y is second, calldata is 3rd
+    swap1 // y is first and needs to be reassigned
+    pop//approx, calldata
+    swap1//calldata, approx
+    dup2//approx,calldata,approx
+    dup2//calldata, approx, calldata, approx
+    div//new y, calldata, approx
+    dup1 dup4 //approx,y, y, calldata, approx
+    sub//approx - y, y, calldata, approx
+    0x01 //1, approx - y, y, calldata, approx
+    dup2 gt //is approx - y  > 1
+    while_loop jumpi //recursion if it isnt accurate enough
 
-    //while_loop jumpi
-    0x00 mstore //hopefully returns calldata
+    swap2 0x00 mstore
     0x20 0x00 return
-
-    while_loop:
-    0x10 0x00 mstore
-    0x20 0x00 return */
 
 }
 
