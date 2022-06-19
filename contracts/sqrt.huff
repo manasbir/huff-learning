@@ -1,6 +1,6 @@
 #define function sqrt(uint256) pure returns(uint256)
 
-#define macro SQRT() = takes (1) returns (3) {
+#define macro SQRT() = takes (0) returns (3) {
     0x04 calldataload
     0x02 //2 , calldata
     dup2 //calldata, 2 , calldata
@@ -22,7 +22,7 @@
 
     while_loop: //y is at the top of the stack and the calldata is 2nd, approx should be 3rd ready to be replaced
     swap2
-    pop
+    pop //get rid of the approximation
     dup1
     dup3 add
     0x02 swap1
@@ -36,7 +36,8 @@
     dup1 swap3 //approx,y, y, calldata, approx
     sub//approx - y, y, calldata, approx
     0x01 //1, approx - y, y, calldata, approx
-    dup2 gt //is approx - y  > 1
+    swap1
+    gt //is approx - y  > 1
     while_loop jumpi //recursion if it isnt accurate enough
     //0x00, y, calldata, approx
 

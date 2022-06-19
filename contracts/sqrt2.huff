@@ -1,0 +1,33 @@
+#define function sqrt(uint256) pure returns(uint256)
+
+#define macro SQRT() = takes (0) returns (3) {
+    0x04 calldataload
+    0x02
+    dup2
+    div //approx,calldata
+    0x01 //y
+    0x01//for later 1,y,approx,calldata
+    dup2//y,1,y,approx,calldata
+    dup4
+    sub//approx - y, 1, y, approx, calldata
+    gt
+    guessing jumpi
+    0x01 0x00 mstore
+    0x20 0x00 return
+
+    guessing:
+    0x00 0x00 mstore
+    0x20 0x00 return
+
+
+    //do whatever with the guess
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    // Identify which function is being called.
+    0x00 calldataload 0xE0 shr
+    dup1 0x677342ce eq sqrt jumpi
+
+    sqrt:
+        SQRT()
+}

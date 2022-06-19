@@ -1,4 +1,4 @@
-const { expect } = require("chai");
+/* const { expect } = require("chai");
 const { assert } = require("console");
 const { ethers } = require("hardhat");
 
@@ -15,7 +15,7 @@ describe("sqrt tests", function () {
       "0x0000000000000000000000000000000000000000"
     );
   });
-/*    it("is greater than", async function () {
+    it("is greater than", async function () {
     expect(await number.sqrt(25)).to.equal(5);
     console.log('25 ', await number.sqrt(25));
   });
@@ -26,5 +26,5 @@ describe("sqrt tests", function () {
   it("i sless than", async function () {
     expect(await number.sqrt(36)).to.equal(6);
     console.log('36 ', await number.sqrt(36))
-  }); */
-});
+  });
+}); */
