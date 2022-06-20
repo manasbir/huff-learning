@@ -16,7 +16,7 @@ describe("sqrt tests", function () {
     );
   });
     it("is greater than", async function () {
-    expect(await sqrt2.sqrt(25)).to.equal(0);
+    expect(await sqrt2.sqrt(4)).to.equal(1);
   });
   it("i sless than", async function () {
     expect(await sqrt2.sqrt(9)).to.equal(0);

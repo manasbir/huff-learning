@@ -2,22 +2,54 @@
 
 #define macro SQRT() = takes (0) returns (3) {
     0x04 calldataload
-    0x02
-    dup2
-    div //approx,calldata
-    0x01 //y
-    0x01//for later 1,y,approx,calldata
-    dup2//y,1,y,approx,calldata
+    0x01//y
+    0x02//2,y,calldata
+    dup3
+    div //approx,y,calldata
+    0x01//for later 1,approx, y, calldata
+    dup3//y,1,y,approx,calldata
     dup4
     sub//approx - y, 1, y, approx, calldata
-    gt
+    gt//the 1 we set aside is used
     guessing jumpi
-    0x01 0x00 mstore
-    0x20 0x00 return
+
 
     guessing:
-    0x00 0x00 mstore
-    0x20 0x00 return
+    //order of stack approx, y, calldata
+    //we need to add the logic first then the check for recursion
+    //first we need to update approx
+    pop
+    //approx = (number + y)/2
+    //y,calldata
+    0x02//for the div later
+    dup3
+    dup3
+    add
+    div
+    //new approx, y, calldata
+    //give y new value now
+    swap1 pop //swap into y then remove its value
+    dup1//approx,approx,calldata
+    dup3
+    div
+    //new y is now made and first
+    //y,approx,calldata
+    //do checks with xor and iszero
+    0x01
+    dup2 dup2 //approx,y,1,y,approx,calldata
+    sub//approx-1,1,y,approx,calldata
+    gt //bool,y,approx,calldata
+    
+    //second check bc it needs to be absolute value
+    0x01//1,bool,y,approx,calldata
+    dup3 dup5
+    gt
+
+    //bool,bool,y,approx,calldata
+
+    xor 
+    //iszero
+
 
 
     //do whatever with the guess
