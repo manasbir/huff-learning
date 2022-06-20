@@ -13,7 +13,7 @@
 
     //mess with this tomorrow for debugging sake
     //this check may determine if our checks(yes even in the loop/reciursion) is working as expected
-    lt//the 1 we set aside is used
+    gt//the 1 we set aside is used
     guessing jumpi
 
     //if the first check works (4) then return
@@ -49,13 +49,13 @@
     swap1//will help later
 
     //do checks with xor and iszero
-    0x01
+    0x02
     dup2 dup2 //y,approx,1,approx,y,calldata
     sub//y-approx,1,approx,y,calldata
     gt //bool,approx,y,calldata
     
     //second check bc it needs to be absolute value
-    0x01//1,bool,approx,y,calldata
+    0x02//1,bool,approx,y,calldata
     dup3 dup5 //approx,y, 1, bool, approx,y, calldata
     sub//approx-y, 1, bool, approx, y, calldata
     gt
@@ -81,3 +81,4 @@
     sqrt:
         SQRT()
 }
+

@@ -1,2 +1,26 @@
 //use file to do gt and lt checks to make sure there arent uneccesary loops
 //some tests can also be done in python
+#define function test(uint256, uint256) pure returns (bool)
+#define function test2(uint256, uint256) pure returns (uint256)
+
+#define macro TEST() = takes(0) returns(0) {
+    0x04 calldataload
+    0x24 calldataload
+    
+}
+
+#define macro TEST_2() = takes(0) returns(0) {
+
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    // Identify which function is being called.
+    0x00 calldataload 0xE0 shr
+    dup1 0xeb8ac921 eq test jumpi
+    dup1 0x687eaed6 eq test2 jumpi
+
+    test:
+        TEST()
+    test2:
+        TEST_2()
+}
