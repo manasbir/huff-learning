@@ -12,7 +12,7 @@
     sub//approx - y, 1, y, approx, calldata
 
     //mess with this tomorrow for debugging sake
-    //this check may determine if our check is working as expected
+    //this check may determine if our checks(yes even in the loop/reciursion) is working as expected
     lt//the 1 we set aside is used
     guessing jumpi
 
