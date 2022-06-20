@@ -10,8 +10,19 @@
     dup3//y,1,y,approx,calldata
     dup4
     sub//approx - y, 1, y, approx, calldata
-    gt//the 1 we set aside is used
+
+    //mess with this tomorrow for debugging sake
+    //this check may determine if our check is working as expected
+    lt//the 1 we set aside is used
     guessing jumpi
+
+    //if the first check works (4) then return
+    0x00 mstore
+    0x20 0x00 mstore
+
+    //something wrong with the loop
+    //or takes too much memory for the evm
+    //the check may be wrong
 
 
     guessing:
@@ -52,7 +63,7 @@
     //bool,bool,approx,y,calldata
 
     xor //new bool, approx, y, calldata
-    iszero
+    //iszero
     guessing jumpi
 
     //if the number is accurate enough

@@ -19,6 +19,6 @@ describe("sqrt tests", function () {
     expect(await sqrt2.sqrt(4)).to.equal(2);
   });
   it("9", async function () {
-    expect(await sqrt2.sqrt(100)).to.equal(10);
+    expect(await sqrt2.sqrt(9)).to.equal(3);
   });
 });
