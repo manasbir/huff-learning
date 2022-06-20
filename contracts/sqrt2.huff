@@ -34,24 +34,31 @@
     div
     //new y is now made and first
     //y,approx,calldata
+
+    swap1//will help later
+
     //do checks with xor and iszero
     0x01
-    dup2 dup2 //approx,y,1,y,approx,calldata
-    sub//approx-1,1,y,approx,calldata
-    gt //bool,y,approx,calldata
+    dup2 dup2 //y,approx,1,approx,y,calldata
+    sub//y-approx,1,approx,y,calldata
+    gt //bool,approx,y,calldata
     
     //second check bc it needs to be absolute value
-    0x01//1,bool,y,approx,calldata
-    dup3 dup5
+    0x01//1,bool,approx,y,calldata
+    dup3 dup5 //approx,y, 1, bool, approx,y, calldata
+    sub//approx-y, 1, bool, approx, y, calldata
     gt
 
-    //bool,bool,y,approx,calldata
+    //bool,bool,approx,y,calldata
 
-    xor 
-    //iszero
+    xor //new bool, approx, y, calldata
+    iszero
+    guessing jumpi
 
-
-
+    //if the number is accurate enough
+    0x00 mstore
+    0x20 0x00 return
+    
     //do whatever with the guess
 }
 

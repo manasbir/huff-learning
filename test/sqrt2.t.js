@@ -15,13 +15,10 @@ describe("sqrt tests", function () {
       "0x0000000000000000000000000000000000000000"
     );
   });
-    it("is greater than", async function () {
-    expect(await sqrt2.sqrt(4)).to.equal(1);
+    it("4", async function () {
+    expect(await sqrt2.sqrt(4)).to.equal(2);
   });
-  it("i sless than", async function () {
-    expect(await sqrt2.sqrt(9)).to.equal(0);
-  });
-  it("i sless than", async function () {
-    expect(await sqrt2.sqrt(36)).to.equal(0);
+  it("9", async function () {
+    expect(await sqrt2.sqrt(100)).to.equal(10);
   });
 });
