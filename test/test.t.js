@@ -16,9 +16,9 @@ describe("return string test", function () {
     );
   });
    it("will return 'fizzbuzz'/a value at all", async function () {
-    expect(await test.test()).to.equal(true);
+    expect(await test.test(3,4)).to.equal(true);
   });
   it("will return 'fizzbuzz'/a value at all", async function () {
-    expect(await test.test()).to.equal(3);
+    //expect(await test.test()).to.equal(3);
   });
 });

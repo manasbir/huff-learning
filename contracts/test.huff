@@ -4,9 +4,22 @@
 #define function test2(uint256, uint256) pure returns (uint256)
 
 #define macro TEST() = takes(0) returns(0) {
+    0x01
     0x04 calldataload
     0x24 calldataload
-    
+    sub
+    gt
+
+    0x01
+    0x24 calldataload
+    0x04 calldataload
+    sub
+    gt
+    xor
+    //iszero
+
+    0x00 mstore
+    0x20 0x00 return
 }
 
 #define macro TEST_2() = takes(0) returns(0) {
