@@ -4,7 +4,7 @@ const { ethers } = require("hardhat");
 
 let test;
 
-describe("return string test", function () {
+describe("test", function () {
   beforeEach(async function () {
     const Test = await ethers.getContractFactory("test");
     test = await Test.deploy();
@@ -17,8 +17,10 @@ describe("return string test", function () {
   });
    it("will return 'fizzbuzz'/a value at all", async function () {
     expect(await test.test(3,4)).to.equal(true);
+    expect(await test.test(3,4)).to.equal(true);
+    expect(await test.test(3,5)).to.equal(false);
   });
   it("will return 'fizzbuzz'/a value at all", async function () {
-    //expect(await test.test()).to.equal(3);
+    expect(await test.test_two(5,3)).to.equal(1);
   });
 });

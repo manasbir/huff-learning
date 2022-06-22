@@ -4,16 +4,17 @@
     0x04 calldataload
     0x01//y
     0x02//2,y,calldata
-    dup3
-    div //approx,y,calldata
+    dup3//calldata,2,y,calldata
+    div //approx(calldata/2),y,calldata
     0x01//for later 1,approx, y, calldata
-    dup3//y,1,y,approx,calldata
-    dup4
-    sub//approx - y, 1, y, approx, calldata
+    dup3//y,1,approx,y,calldata
+    dup4//approx,y,1,approx,y,calldata
+    sub//approx - y, 1, approx, y, calldata
 
     //mess with this tomorrow for debugging sake
     //this check may determine if our checks(yes even in the loop/reciursion) is working as expected
     gt//the 1 we set aside is used
+    //bool,approx,y,calldata
     guessing jumpi
 
     //if the first check works (4) then return
@@ -27,14 +28,14 @@
 
     guessing:
     //order of stack approx, y, calldata
-    //we need to add the logic first then the check for recursion
+    //we need to add the logic first then the checks for recursion
     //first we need to update approx
     pop
     //approx = (number + y)/2
     //y,calldata
     0x02//for the div later
-    dup3
-    dup3
+    dup3//calldata
+    dup3//y
     add
     div
     //new approx, y, calldata
@@ -63,7 +64,7 @@
     //bool,bool,approx,y,calldata
 
     xor //new bool, approx, y, calldata
-    //iszero
+    iszero
     guessing jumpi
 
     //if the number is accurate enough
