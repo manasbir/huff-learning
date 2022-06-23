@@ -7,6 +7,7 @@
     //make estimate
     0x04 calldataload
     0x01 //y
+    //y and approx should be able to be switched with no worries
     dup2//approx
     //no point in initial checks
     estimate jump
@@ -26,6 +27,17 @@
     dup1
     dup3
     div
+
+    //y, approx, calldata
+
+    swap1
+
+    //check if good
+    dup2 dup2
+    eq
+    iszero
+
+    estimate jumpi
 
 
     0x00 mstore
