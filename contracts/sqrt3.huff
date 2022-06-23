@@ -30,7 +30,7 @@
 
     //y, approx, calldata
 
-    swap1
+    swap1 //could maybe be optimized but swapped here so only needs to swap once, but maybe no swaps necessary
 
     //check if good
     dup2 dup2
