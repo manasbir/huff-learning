@@ -34,7 +34,22 @@
 
     //check if good
     dup2 dup2
-    eq
+    eq //this just is if the two values are equal
+    //only works because no float point
+    //if we multiplied by 1000 for the decimals it would  be
+    /*
+    dup2 dup4
+    sub
+    0x03e8
+    lt
+
+    dup4 dup4
+    sub
+    0x03e8
+    lt
+    */
+    //the logic is very nice for this circumstance
+    //prev attempts were uneccessary logic
     iszero
 
     estimate jumpi
@@ -42,11 +57,6 @@
 
     0x00 mstore
     0x20 0x00 return
-     
-
-
-    
-    //do whatever with the guess
 }
 
 #define macro MAIN() = takes (0) returns (0) {
