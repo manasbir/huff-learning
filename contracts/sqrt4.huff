@@ -1,86 +1,49 @@
 #define function sqrt(uint256) pure returns(uint256)
-#define function proxyMacro(uint256) pure returns (uint256)
-
 
 //i could multiply everything by 1000 and divide by 1000 later
 //so we have space for decimals while the function is running
 
+//gets the square root of an input
 #define macro SQRT() = takes (1) returns (1) {
-    //make estimate
-
-    //the stack will act as our calldata
-    //0x04 calldataload
-    0x01 //y
-    //y and approx should be able to be switched with no worries
-    dup2//approx
-    //no point in initial checks
-    estimate jump
+    // takes: [number]
+    0x01    // [y, number]
+    dup2    // [guess, y, number]
+    estimate    // [estimate_dest, guess, y, number]
+    jump    // [guess, y, number]
 
     estimate:
-    //make approx = (approx + y)/2
-    //stack is approx, y, calldata
-    add //approx + y, calldata
-    //y wil be popped anyways
-    //and approx will be replaced
-    0x02 //for division
-    swap1
-    div
-    //new approx value, calldata
+    add     // [guess + y, number]
+    0x02    // [2, guess + y, number]
+    swap1   // [guess + y, 2, number]
+    div     // [new_guess, number]
+    dup1    // [guess, guess, number]
+    dup3    // [number, guess, guess, number]
+    div     // [number / guess, guess, number]
 
-    //now we need to y = calldata/approx
-    dup1
-    dup3
-    div
+    // [new_y, guess, number]
 
-    //y, approx, calldata
+    swap1   // [guess, y, number]
+    dup2    // [y, guess, y, number]
+    dup2    // [guess, y, guess, y, number]
+    eq      // [is_equal, guess, y, number]
+    iszero  // [is_not_equal, guess, y, number]
 
-    swap1 //could maybe be optimized but swapped here so only needs to swap once, but maybe no swaps necessary
+    estimate    // [estimate_jumpdest, is_not_equal, guess, y, number]
+    jumpi   // [guess, y, number]
 
-    //check if good
-    dup2 dup2
-    eq //this just is if the two values are equal
-    //only works because no float point
-    //if we multiplied by 1000 for the decimals it would  be
-    /*
-    dup2 dup4
-    sub
-    0x03e8
-    lt
-
-    dup4 dup4
-    sub
-    0x03e8
-    lt
-    */
-    //the logic is very nice for this circumstance
-    //prev attempts were uneccessary logic
-    iszero
-
-    estimate jumpi
-
-    swap1 pop
-    swap1 pop
-    //done!
+    swap1   // [y, sqrt_number, number]
+    pop     // [sqrt_number, number]
+    swap1   // [number, sqrt_number]
+    pop     // [sqrt_number]
 }
 
-
-#define macro PROXY_MACRO() = takes (0) returns (1) {
-    0x04 calldataload
-    SQRT()
-    0x00 mstore
-    0x20 0x00 return
-}
 
 
 #define macro MAIN() = takes (0) returns (0) {
-    // Identify which function is being called.
     0x00 calldataload 0xE0 shr
     dup1 0x677342ce eq sqrt jumpi
-    dup1 0x32a9c922 eq proxyMacro jumpi
 
     sqrt:
         SQRT()
-    proxyMacro:
-        PROXY_MACRO()
 }
 
