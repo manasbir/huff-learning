@@ -63,6 +63,7 @@
 }
 
 #define macro AVG() = takes (2) returns (1) {
+    // i just stole this of OZ, i have no idea how it works
     // [num1, num2]
     dup2    // [num2, num1, num2]
     dup2    // [num1, num2, num1, num2]
