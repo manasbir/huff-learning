@@ -1,0 +1,17 @@
+#define function sqrt(uint256) pure returns(uint256)
+
+//gets the square root of an input
+#define macro SQRT() = takes (0) returns (1) {
+    
+}
+
+
+
+#define macro MAIN() = takes (0) returns (0) {
+    0x00 calldataload 0xE0 shr
+    dup1 0x677342ce eq sqrt jumpi
+
+    sqrt:
+        SQRT()
+}
+

@@ -24,4 +24,10 @@ describe("sqrt3 tests", function () {
   it("151", async function () {
     expect(await sqrt3.sqrt(151)).to.equal(12);
   });
+  it("0", async function () {
+    expect(await sqrt3.sqrt(0)).to.equal(0);
+  });
+  it("max uint", async function () {
+    expect(await sqrt3.sqrt(1002001)).to.equal(1001);
+  });
 });
