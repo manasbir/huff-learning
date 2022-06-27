@@ -6,7 +6,7 @@ let math;
 //doesn't actually test right lol
 describe("SquareRoot tests", function () {
   beforeEach(async function () {
-    const Math = await ethers.getContractFactory("SquareRoot");
+    const Math = await ethers.getContractFactory("Math");
     math = await Math.deploy();
     await math.deployed();
   });
@@ -22,8 +22,15 @@ describe("SquareRoot tests", function () {
   it("max and min", async function () {
     expect(await math.min(5,34)).to.equal(5);
     expect(await math.max(5,34)).to.equal(34);
+    expect(await math.min(34,5)).to.equal(5);
+    expect(await math.max(34,5)).to.equal(34);
   });
   it("average", async function () {
     expect(await math.average(5,34)).to.equal(19);
+  });
+  it("ceil div", async function () {
+    expect(await math.ceilDiv(10,2)).to.equal(5);
+    expect(await math.ceilDiv(110,9)).to.equal(13);
+    expect(await math.ceilDiv(0,9)).to.equal(0);
   });
 });
