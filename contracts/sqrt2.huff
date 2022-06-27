@@ -1,6 +1,7 @@
 /*
 DOES NOT WORK
 */
+//unfortunately :c
 #define function sqrt(uint256) pure returns(uint256)
 
 #define macro SQRT() = takes (0) returns (3) {
