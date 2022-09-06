@@ -1,0 +1,70 @@
+/* Interface */
+#define function nonReentrant() nonpayable returns (uint256)
+
+#define constant LOCK_SLOT = FREE_STORAGE_POINTER()
+
+
+//0 if locked, 1 if not locked
+#define macro NON_REENTRANT_1() = takes (0) returns (0) {
+    [LOCK_SLOT] sload
+    unlocked jumpi
+    0x00 0x00
+    revert //revert if is 0
+    unlocked:
+    0x00 //lock
+    [LOCK_SLOT] 
+    sstore
+}
+
+#define macro UNLOCK_1() = takes (0) returns (0) {
+    0x01 
+    [LOCK_SLOT]
+    sstore
+}
+
+#define macro NON_REENTRANT_2() = takes (0) returns (0) {
+    [LOCK_SLOT] sload
+    unlocked jumpi
+    0x00 0x00
+    revert //revert if is 0
+    unlocked:
+    0x00 //lock
+    [LOCK_SLOT] sstore
+}
+
+#define macro UNLOCK_2() = takes (0) returns (0) {
+    unlock:
+    0x00 
+    [LOCK_SLOT]
+    sstore
+}
+
+#define macro DO_ACTION_1() = takes (0) returns (0) {
+    NON_REENTRANT_1()
+    0x05
+    0x00 mstore
+    0x20 0x00
+    UNLOCK_1()
+    return
+}
+
+#define macro DO_ACTION_2(unlock) = takes (0) returns (0) {
+    NON_REENTRANT_2()
+    0x05
+    0x00 mstore
+    <unlock>
+}
+
+#define macro DO_ACTION_WRAPPER() = takes (0) returns (0) {
+    DO_ACTION_2(UNLOCK_2())
+    0x20 0x00
+    return
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    0x00 calldataload 0xe0 shr
+    dup1 0x129ea136 eq nonReentrant jumpi
+
+    nonReentrant:
+        DO_ACTION_1()
+}

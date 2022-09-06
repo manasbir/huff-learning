@@ -1,0 +1,13 @@
+#define function buyTickets(uint256) payable returns()
+
+#define constant END_TIME = FREE_STORAGE_POINTER()
+#define constant TOTAL_TICKETS = FREE_STORAGE_POINTER()
+#define constant CURR_PRICE = FREE_STORAGE_POINTER()
+
+#define macro MAIN() = takes (0) returns (0) {
+    0x00 calldataload 0xe0 shr
+    dup1 /* */ eq buyTickets jumpi
+
+    buyTickets:
+
+}

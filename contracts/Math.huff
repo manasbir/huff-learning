@@ -4,12 +4,17 @@
 #define function average(uint256, uint256) pure returns(uint256)
 #define function ceilDiv(uint256, uint256) pure returns(uint256)
 
+
+// this square root function is using the Babylonian method
+// instead of the Newton-Raphson method.
+// from what I've seen, they have the same
+
+//also shit LMAO
+//alot of these also may be broken, check huffmate :thumbsup:
 #define macro SQRT() = takes (1) returns (1) {
     // takes: [number]
     0x01    // [y, number]
     dup2    // [guess, y, number]
-    estimate    // [estimate_dest, guess, y, number]
-    jump    // [guess, y, number]
 
     estimate:
     add     // [guess + y, number]
@@ -22,14 +27,12 @@
 
     // [new_y, guess, number]
 
-    swap1   // [guess, y, number]
     dup2    // [y, guess, y, number]
     dup2    // [guess, y, guess, y, number]
     eq      // [is_equal, guess, y, number]
     iszero  // [is_not_equal, guess, y, number]
 
-    estimate    // [estimate_jumpdest, is_not_equal, guess, y, number]
-    jumpi   // [guess, y, number]
+    estimate jumpi   // [guess, y, number]
 
     swap1   // [y, sqrt_number, number]
     pop     // [sqrt_number, number]
